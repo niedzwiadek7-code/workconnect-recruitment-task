@@ -1,14 +1,19 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { NuqsAdapter } from 'nuqs/adapters/react'
 
-import "./index.css"
-import App from "./App.tsx"
-import { ThemeProvider } from "@/components/theme-provider.tsx"
+import App from './App.tsx'
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </StrictMode>
+import './index.css'
+// TODO: to delete or implement dark mode
+// import { ThemeProvider } from "@/components/theme-provider.tsx"
+
+createRoot(document.getElementById('root')!).render(
+	<StrictMode>
+		{/*<ThemeProvider>*/}
+		<NuqsAdapter>
+			<App />
+		</NuqsAdapter>
+		{/*</ThemeProvider>*/}
+	</StrictMode>
 )
