@@ -1,6 +1,4 @@
-import { Plus } from 'lucide-react'
-
-import { Button } from '@/components/ui/button.tsx'
+import CreateProduct from '@/pages/Products/components/CreateProduct/CreateProduct.tsx'
 
 type Props = {
 	isPending?: boolean
@@ -20,10 +18,8 @@ const ProductsHeader = ({ isPending, isError, error, total }: Props) => {
 					{!isPending && !isError && `${total} produktów w katalogu`}
 				</div>
 			</div>
-			<Button variant='default' className='cursor-pointer px-4 py-2'>
-				<Plus />
-				Dodaj produkt
-			</Button>
+
+			<CreateProduct />
 		</div>
 	)
 }
