@@ -1,8 +1,8 @@
-import { Card } from '@/components/ui/card.tsx'
-import AvailableBadge from '@/pages/Products/components/AvailableBadge.tsx'
-import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper.ts'
-import type { Product } from '@/schemas/product.ts'
-import { calculateGrossPrice, formatPrice } from '@/utils/price.ts'
+import { Card } from '@/components/ui/card'
+import AvailableBadge from '@/pages/Products/components/AvailableBadge'
+import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper'
+import type { Product } from '@/schemas/product'
+import { calculateGrossPrice, formatPrice } from '@/utils/price'
 
 type Props = {
 	product: Product

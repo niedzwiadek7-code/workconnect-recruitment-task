@@ -1,5 +1,5 @@
-import type { Pagination, PaginationResponse } from '@/types/pagination.ts'
-import type { DbProduct } from '@/types/product.ts'
+import type { Pagination, PaginationResponse } from '@/types/pagination'
+import type { DbProduct } from '@/types/product'
 
 export type GetProductRequest = Pagination
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import { Toaster } from '@/components/ui/toast.tsx'
+import { Toaster } from '@/components/ui/toast'
 
 type Props = {
 	children: ReactNode

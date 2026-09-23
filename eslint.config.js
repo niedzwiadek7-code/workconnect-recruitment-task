@@ -80,6 +80,10 @@ export default defineConfig([
 					message:
 						'The function keyword is forbidden. Use arrow functions instead.',
 				},
+				{
+					selector: 'ImportDeclaration[source.value=/\\.(tsx?|jsx?)$/]',
+					message: 'Import statements should not include file extensions.',
+				},
 			],
 
 			curly: ['error', 'all'],

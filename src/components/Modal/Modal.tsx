@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority'
 import { cn } from 'cn'
 import { Loader2Icon, type LucideIcon, XIcon } from 'lucide-react'
 
-import { Button, buttonVariants } from '@/components/ui/button.tsx'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogClose,
@@ -12,7 +12,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from '@/components/ui/dialog.tsx'
+} from '@/components/ui/dialog'
 
 export type ModalButtonProp = {
 	label: string

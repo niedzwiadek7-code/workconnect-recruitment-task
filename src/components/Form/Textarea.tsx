@@ -2,8 +2,8 @@ import React from 'react'
 
 import { useFieldContext } from '.'
 
-import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
-import { Textarea } from '@/components/ui/textarea.tsx'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
+import { Textarea } from '@/components/ui/textarea'
 
 type Props = {
 	label: string

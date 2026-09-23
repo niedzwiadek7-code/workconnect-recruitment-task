@@ -1,4 +1,4 @@
-import CreateProduct from '@/pages/Products/components/CreateProduct/CreateProduct.tsx'
+import CreateProduct from '@/pages/Products/components/CreateProduct/CreateProduct'
 
 type Props = {
 	isPending?: boolean

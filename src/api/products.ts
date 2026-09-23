@@ -1,9 +1,9 @@
-import { mockProductsApi } from '@/api/mock/productsApi.ts'
+import { mockProductsApi } from '@/api/mock/productsApi'
 import type {
 	GetProductRequest,
 	GetProductResponse,
-} from '@/api/types/products.ts'
-import type { Product } from '@/schemas/product.ts'
+} from '@/api/types/products'
+import type { Product } from '@/schemas/product'
 
 export interface ProductsApi {
 	getProducts(request: GetProductRequest): Promise<GetProductResponse>

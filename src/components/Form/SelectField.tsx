@@ -1,6 +1,6 @@
 import { useFieldContext } from '.'
 
-import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import {
 	Select,
 	SelectContent,
@@ -9,7 +9,7 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from '@/components/ui/select.tsx'
+} from '@/components/ui/select'
 
 type Props = {
 	label: string

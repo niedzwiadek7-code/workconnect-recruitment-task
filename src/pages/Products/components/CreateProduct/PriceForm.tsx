@@ -1,9 +1,9 @@
 import { withForm } from '@/components/Form'
-import PriceInput from '@/components/Inputs/PriceInput.tsx'
-import { Field, FieldLabel } from '@/components/ui/field.tsx'
-import { productFormOpts } from '@/pages/Products/components/CreateProduct/form-options.ts'
-import { vatEnum } from '@/schemas/product.ts'
-import { calculateGrossPrice, calculateNetPrice } from '@/utils/price.ts'
+import PriceInput from '@/components/Inputs/PriceInput'
+import { Field, FieldLabel } from '@/components/ui/field'
+import { productFormOpts } from '@/pages/Products/components/CreateProduct/form-options'
+import { vatEnum } from '@/schemas/product'
+import { calculateGrossPrice, calculateNetPrice } from '@/utils/price'
 
 const PriceForm = withForm({
 	...productFormOpts,

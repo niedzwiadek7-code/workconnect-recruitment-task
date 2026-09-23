@@ -2,8 +2,8 @@ import React from 'react'
 
 import { useFieldContext } from '.'
 
-import PriceInput from '@/components/Inputs/PriceInput.tsx'
-import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
+import PriceInput from '@/components/Inputs/PriceInput'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 
 type Props = {
 	label: string

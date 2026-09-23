@@ -1,11 +1,11 @@
-import type { ProductsApi } from '@/api/products.ts'
+import type { ProductsApi } from '@/api/products'
 import type {
 	GetProductRequest,
 	GetProductResponse,
-} from '@/api/types/products.ts'
-import { type Product, productSchema } from '@/schemas/product.ts'
-import { dumpProducts } from '@/test/data/products.ts'
-import type { DbProduct } from '@/types/product.ts'
+} from '@/api/types/products'
+import { type Product, productSchema } from '@/schemas/product'
+import { dumpProducts } from '@/test/data/products'
+import type { DbProduct } from '@/types/product'
 import { delay } from '@/utils'
 
 const MOCK_DELAY_MS = 300
@@ -29,11 +29,11 @@ export const mockProductsApi: ProductsApi = {
 		await delay(MOCK_DELAY_MS)
 		const validated = productSchema.parse(product)
 		products = [
-			...products,
 			{
 				...validated,
 				id: products.length + 1,
 			},
+			...products,
 		]
 		return validated
 	},

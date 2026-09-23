@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Input } from '@/components/ui/input.tsx'
+import { Input } from '@/components/ui/input'
 
 type Props = {
 	value: number | null | undefined

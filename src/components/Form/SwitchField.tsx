@@ -1,7 +1,7 @@
 import { useFieldContext } from '.'
 
-import { Field, FieldLabel } from '@/components/ui/field.tsx'
-import { Switch } from '@/components/ui/switch.tsx'
+import { Field, FieldLabel } from '@/components/ui/field'
+import { Switch } from '@/components/ui/switch'
 
 type Props = {
 	label: string

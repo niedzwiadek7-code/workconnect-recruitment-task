@@ -1,6 +1,6 @@
-import type { GetProductResponse } from '@/api/types/products.ts'
-import Pagination from '@/components/Pagination/Pagination.tsx'
-import ProductCard from '@/pages/Products/components/ProductCard.tsx'
+import type { GetProductResponse } from '@/api/types/products'
+import Pagination from '@/components/Pagination/Pagination'
+import ProductCard from '@/pages/Products/components/ProductCard'
 
 type Props = {
 	productsResult: GetProductResponse

@@ -1,4 +1,4 @@
-import type { Product } from '@/schemas/product.ts'
+import type { Product } from '@/schemas/product'
 
 export const categoryNameToCategoryLabel: Record<Product['category'], string> =
 	{

@@ -1,6 +1,6 @@
 import { withForm } from '@/components/Form'
-import { Separator } from '@/components/ui/separator.tsx'
-import { productFormOpts } from '@/pages/Products/components/CreateProduct/form-options.ts'
+import { Separator } from '@/components/ui/separator'
+import { productFormOpts } from '@/pages/Products/components/CreateProduct/form-options'
 
 const StockForm = withForm({
 	...productFormOpts,

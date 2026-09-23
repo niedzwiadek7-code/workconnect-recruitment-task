@@ -1,6 +1,6 @@
-import type { GetProductResponse } from '@/api/types/products.ts'
-import Pagination from '@/components/Pagination/Pagination.tsx'
-import { Badge } from '@/components/ui/badge.tsx'
+import type { GetProductResponse } from '@/api/types/products'
+import Pagination from '@/components/Pagination/Pagination'
+import { Badge } from '@/components/ui/badge'
 import {
 	Table,
 	TableBody,
@@ -9,11 +9,11 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from '@/components/ui/table.tsx'
-import AvailableBadge from '@/pages/Products/components/AvailableBadge.tsx'
-import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper.ts'
-import type { Pagination as PaginationType } from '@/types/pagination.ts'
-import { calculateGrossPrice, formatPrice } from '@/utils/price.ts'
+} from '@/components/ui/table'
+import AvailableBadge from '@/pages/Products/components/AvailableBadge'
+import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper'
+import type { Pagination as PaginationType } from '@/types/pagination'
+import { calculateGrossPrice, formatPrice } from '@/utils/price'
 
 type Props = {
 	productsResult: GetProductResponse

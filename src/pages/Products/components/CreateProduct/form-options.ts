@@ -1,7 +1,7 @@
 import { formOptions } from '@tanstack/react-form'
 import type { z } from 'zod'
 
-import { productSchema } from '@/schemas/product.ts'
+import { productSchema } from '@/schemas/product'
 
 export const productFormOpts = formOptions({
 	defaultValues: {

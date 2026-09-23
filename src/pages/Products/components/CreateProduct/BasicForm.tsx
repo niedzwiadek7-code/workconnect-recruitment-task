@@ -1,4 +1,4 @@
-import { productFormOpts } from './form-options.ts'
+import { productFormOpts } from './form-options'
 
 import { withForm } from '@/components/Form'
 

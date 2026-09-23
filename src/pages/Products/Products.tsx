@@ -2,11 +2,11 @@ import { useMemo } from 'react'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { parseAsInteger, useQueryStates } from 'nuqs'
 
-import { productsApi } from '@/api/products.ts'
-import type { GetProductResponse } from '@/api/types/products.ts'
-import ProductsCards from '@/pages/Products/components/ProductsCards.tsx'
-import ProductsHeader from '@/pages/Products/components/ProductsHeader.tsx'
-import ProductsTable from '@/pages/Products/components/ProductsTable.tsx'
+import { productsApi } from '@/api/products'
+import type { GetProductResponse } from '@/api/types/products'
+import ProductsCards from '@/pages/Products/components/ProductsCards'
+import ProductsHeader from '@/pages/Products/components/ProductsHeader'
+import ProductsTable from '@/pages/Products/components/ProductsTable'
 
 const Products = () => {
 	const [filters, setFilters] = useQueryStates(

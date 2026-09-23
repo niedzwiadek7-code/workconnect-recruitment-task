@@ -1,7 +1,7 @@
 import { useFieldContext } from '.'
 
-import { Checkbox } from '@/components/ui/checkbox.tsx'
-import { Field, FieldLabel } from '@/components/ui/field.tsx'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Field, FieldLabel } from '@/components/ui/field'
 
 type Props = {
 	label: string

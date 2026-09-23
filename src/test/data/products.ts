@@ -1,4 +1,4 @@
-import type { DbProduct } from '@/types/product.ts'
+import type { DbProduct } from '@/types/product'
 
 export const dumpProducts: DbProduct[] = [
 	{
@@ -32,6 +32,7 @@ export const dumpProducts: DbProduct[] = [
 		currency: 'PLN',
 		available: true,
 		limited: true,
+		stock: 45,
 		minInCart: 1,
 		maxInCart: 3,
 	},
@@ -65,7 +66,8 @@ export const dumpProducts: DbProduct[] = [
 		vat: '23',
 		currency: 'PLN',
 		available: false,
-		limited: false,
+		limited: true,
+		stock: 0,
 		minInCart: 1,
 		maxInCart: 5,
 	},
