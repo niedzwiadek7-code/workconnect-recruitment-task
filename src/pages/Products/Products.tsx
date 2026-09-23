@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { parseAsInteger, useQueryStates } from 'nuqs'
 
 import { productsApi } from '@/api/products'
 import type { GetProductResponse } from '@/api/types/products'
-import ProductsCards from '@/pages/Products/components/ProductsCards'
+import ProductsCards from '@/pages/Products/components/ProductsCards/ProductsCards'
 import ProductsHeader from '@/pages/Products/components/ProductsHeader'
-import ProductsTable from '@/pages/Products/components/ProductsTable'
+import ProductsTable from '@/pages/Products/components/ProductsTable/ProductsTable'
 
 const Products = () => {
 	const [filters, setFilters] = useQueryStates(
@@ -27,7 +27,6 @@ const Products = () => {
 	} = useQuery<GetProductResponse>({
 		queryKey: ['products', filters],
 		queryFn: () => productsApi.getProducts(filters),
-		placeholderData: keepPreviousData,
 	})
 
 	const totalPages = useMemo(() => {
@@ -57,6 +56,7 @@ const Products = () => {
 				totalPages={totalPages}
 				emptyRowsCount={emptyRowsCount}
 				handlePageChange={handlePageChange}
+				isPending={isPending}
 			/>
 
 			<ProductsCards
@@ -64,6 +64,7 @@ const Products = () => {
 				filters={filters}
 				totalPages={totalPages}
 				handlePageChange={handlePageChange}
+				isPending={isPending}
 			/>
 		</div>
 	)

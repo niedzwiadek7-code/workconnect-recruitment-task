@@ -11,6 +11,7 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import AvailableBadge from '@/pages/Products/components/AvailableBadge'
+import TableRowSkeleton from '@/pages/Products/components/ProductsTable/components/TableRowSkeleton'
 import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper'
 import type { Pagination as PaginationType } from '@/types/pagination'
 import { calculateGrossPrice, formatPrice } from '@/utils/price'
@@ -21,6 +22,7 @@ type Props = {
 	totalPages: number
 	emptyRowsCount: number
 	handlePageChange: (newPage: number) => Promise<void>
+	isPending: boolean
 }
 
 const ProductsTable = ({
@@ -29,6 +31,7 @@ const ProductsTable = ({
 	totalPages,
 	emptyRowsCount,
 	handlePageChange,
+	isPending,
 }: Props) => {
 	return (
 		<div className='hidden w-full rounded-lg border bg-card shadow-xs lg:block'>
@@ -56,37 +59,42 @@ const ProductsTable = ({
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{productsResult.data.map((product) => (
-						<TableRow key={product.id}>
-							<TableCell className='px-4 py-2'>{product.name}</TableCell>
-							<TableCell className='text-muted-xs px-4 py-2'>
-								{product.sku}
-							</TableCell>
-							<TableCell className='text-muted-xs px-4 py-2'>
-								{categoryNameToCategoryLabel[product.category]}
-							</TableCell>
-							<TableCell className='px-4 py-2'>
-								{formatPrice(
-									calculateGrossPrice(product.price, Number(product.vat)),
-									product.currency
-								)}
-							</TableCell>
-							<TableCell className='px-4 py-2'>
-								<AvailableBadge available={product.available} />
-							</TableCell>
-							<TableCell className='px-4 py-2'>
-								{product.limited ? product.stock : '-'}
-							</TableCell>
-						</TableRow>
-					))}
+					{isPending
+						? Array.from({ length: filters.perPage }).map((_, index) => (
+								<TableRowSkeleton key={index} />
+							))
+						: productsResult.data.map((product) => (
+								<TableRow key={product.id}>
+									<TableCell className='px-4 py-2'>{product.name}</TableCell>
+									<TableCell className='text-muted-xs px-4 py-2'>
+										{product.sku}
+									</TableCell>
+									<TableCell className='text-muted-xs px-4 py-2'>
+										{categoryNameToCategoryLabel[product.category]}
+									</TableCell>
+									<TableCell className='px-4 py-2'>
+										{formatPrice(
+											calculateGrossPrice(product.price, Number(product.vat)),
+											product.currency
+										)}
+									</TableCell>
+									<TableCell className='px-4 py-2'>
+										<AvailableBadge available={product.available} />
+									</TableCell>
+									<TableCell className='px-4 py-2'>
+										{product.limited ? product.stock : '-'}
+									</TableCell>
+								</TableRow>
+							))}
 
-					{Array.from({ length: emptyRowsCount }).map((_, index) => (
-						<TableRow key={`empty-${index}`}>
-							<TableCell className='px-4 py-2' colSpan={6}>
-								<Badge variant='ghost'>&nbsp;</Badge>
-							</TableCell>
-						</TableRow>
-					))}
+					{!isPending &&
+						Array.from({ length: emptyRowsCount }).map((_, index) => (
+							<TableRow key={`empty-${index}`}>
+								<TableCell className='px-4 py-2' colSpan={6}>
+									<Badge variant='ghost'>&nbsp;</Badge>
+								</TableCell>
+							</TableRow>
+						))}
 				</TableBody>
 
 				<TableFooter>

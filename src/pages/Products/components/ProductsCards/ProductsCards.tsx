@@ -1,6 +1,7 @@
 import type { GetProductResponse } from '@/api/types/products'
 import Pagination from '@/components/Pagination/Pagination'
-import ProductCard from '@/pages/Products/components/ProductCard'
+import ProductCard from '@/pages/Products/components/ProductsCards/components/ProductCard'
+import ProductCardSkeleton from '@/pages/Products/components/ProductsCards/components/ProductCardSkeleton'
 
 type Props = {
 	productsResult: GetProductResponse
@@ -10,6 +11,7 @@ type Props = {
 	}
 	totalPages: number
 	handlePageChange: (newPage: number) => Promise<void>
+	isPending: boolean
 }
 
 const ProductsCards = ({
@@ -17,6 +19,7 @@ const ProductsCards = ({
 	filters,
 	totalPages,
 	handlePageChange,
+	isPending,
 }: Props) => {
 	const handleMobilePageChange = async (newPage: number) => {
 		window.scrollTo({
@@ -30,9 +33,13 @@ const ProductsCards = ({
 	return (
 		<div className='flex h-full w-full flex-col gap-6 lg:hidden'>
 			<div className='flex flex-col gap-2'>
-				{productsResult.data.map((product) => (
-					<ProductCard product={product} key={product.id} />
-				))}
+				{isPending
+					? Array.from({ length: filters.perPage }).map((_, index) => (
+							<ProductCardSkeleton key={index} />
+						))
+					: productsResult.data.map((product) => (
+							<ProductCard product={product} key={product.id} />
+						))}
 			</div>
 
 			<div className='flex flex-col gap-4'>
