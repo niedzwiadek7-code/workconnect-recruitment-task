@@ -1,16 +1,16 @@
+import { initialProducts } from '@/api/mock/products/data'
 import type { ProductsApi } from '@/api/products'
 import type {
 	GetProductRequest,
 	GetProductResponse,
 } from '@/api/types/products'
 import { type Product, productSchema } from '@/schemas/product'
-import { dumpProducts } from '@/test/data/products'
 import type { DbProduct } from '@/types/product'
 import { delay } from '@/utils'
 
 const MOCK_DELAY_MS = 300
 
-let products: DbProduct[] = [...dumpProducts]
+let products: DbProduct[] = [...initialProducts]
 
 export const mockProductsApi: ProductsApi = {
 	getProducts: async (

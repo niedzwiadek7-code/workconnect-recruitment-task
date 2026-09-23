@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 
 import { productFormOpts } from './form-options'
 
-import { mockProductsApi } from '@/api/mock/productsApi'
+import { productsApi } from '@/api/products'
 import { useAppForm } from '@/components/Form'
 import Modal, { type ModalButtonProp } from '@/components/Modal/Modal'
 import { Button } from '@/components/ui/button'
@@ -14,8 +14,9 @@ import { Separator } from '@/components/ui/separator'
 import { toast } from '@/components/ui/toast'
 import BasicForm from '@/pages/Products/components/CreateProduct/BasicForm'
 import PriceForm from '@/pages/Products/components/CreateProduct/PriceForm'
-import StepButton from '@/pages/Products/components/CreateProduct/StepButton'
+import Step from '@/pages/Products/components/CreateProduct/Step'
 import StockForm from '@/pages/Products/components/CreateProduct/StockForm'
+import { useProductsPagination } from '@/pages/Products/hooks/useProductsPagination'
 import { type Product, productSchema } from '@/schemas/product'
 
 const stepFields: Record<number, (keyof Product)[]> = {
@@ -29,19 +30,29 @@ const CreateProduct = () => {
 	const [openModal, setOpenModal] = useState<boolean>(false)
 
 	const queryClient = useQueryClient()
+	const [, setFilters] = useProductsPagination()
 
 	const createProduct = useMutation({
-		mutationFn: (product: Product) => mockProductsApi.createProduct(product),
+		mutationFn: (product: Product) => productsApi.createProduct(product),
 		onSuccess: async () => {
+			await setFilters({ page: 1 })
+
 			await queryClient.invalidateQueries({
 				queryKey: ['products'],
 			})
 
-			setOpenModal(false)
+			resetForm()
 
 			toast.add({
 				title: 'Produkt został dodany',
 				type: 'success',
+			})
+		},
+		onError: (error) => {
+			toast.add({
+				title: 'Nie udało się dodać produktu',
+				description: error instanceof Error ? error.message : undefined,
+				type: 'error',
 			})
 		},
 	})
@@ -144,6 +155,7 @@ const CreateProduct = () => {
 	}, [step, currentStepIsValid, form, handleStep, createProduct.isPending])
 
 	const resetForm = () => {
+		setOpenModal(false)
 		form.reset()
 		setStep(1)
 	}
@@ -165,7 +177,7 @@ const CreateProduct = () => {
 		>
 			<div className='flex min-h-0 grow flex-col'>
 				<div className='mx-4 flex shrink-0 items-center gap-4 overflow-x-auto border-y py-3 lg:mx-0 lg:border-y-0 lg:border-b lg:px-4 lg:py-3'>
-					<StepButton
+					<Step
 						step={1}
 						label='Informacje'
 						description='Dane podstawowe'
@@ -174,16 +186,16 @@ const CreateProduct = () => {
 					<Separator
 						className={cn('min-w-0 flex-1', step > 1 && 'bg-primary')}
 					/>
-					<StepButton
+					<Step
 						step={2}
 						label='Cena'
-						description='Dane podstawowe'
+						description='Dane cenowe'
 						actualStep={step}
 					/>
 					<Separator
 						className={cn('min-w-0 flex-1', step > 2 && 'bg-primary')}
 					/>
-					<StepButton
+					<Step
 						step={3}
 						label='Dostępność'
 						description='Stany magazynowe'

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useFieldContext } from '.'
+import { useFieldContext, useFieldErrors } from '.'
 
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 
 type Props = {
@@ -22,23 +22,33 @@ const InputNumberField = ({
 	...inputProps
 }: Props) => {
 	const field = useFieldContext<number | null>()
+	const { showError, messages } = useFieldErrors()
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let val = e.target.value
+		const raw = e.target.value
 
-		if (val === '') {
+		if (raw === '') {
 			field.handleChange(null)
+			return
 		}
 
-		if (max && Number(val) > max) {
-			val = max.toString()
+		const parsed = Number(raw)
+
+		if (Number.isNaN(parsed)) {
+			return
 		}
 
-		if (min && Number(val) < min) {
-			val = min.toString()
+		if (min !== undefined && parsed < min) {
+			field.handleChange(min)
+			return
 		}
 
-		field.handleChange(Number(val))
+		if (max !== undefined && parsed > max) {
+			field.handleChange(max)
+			return
+		}
+
+		field.handleChange(parsed)
 	}
 
 	return (
@@ -57,6 +67,10 @@ const InputNumberField = ({
 				className='rounded-3xl bg-transparent py-1 pr-2.5 pl-3'
 				{...inputProps}
 			/>
+
+			{showError && (
+				<FieldError className='text-xs'>{messages.join(', ')}</FieldError>
+			)}
 		</Field>
 	)
 }

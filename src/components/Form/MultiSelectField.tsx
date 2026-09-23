@@ -1,7 +1,7 @@
-import { useFieldContext } from '.'
+import { useFieldContext, useFieldErrors } from '.'
 
 import { Badge } from '@/components/ui/badge'
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 
 type Props = {
 	label: string
@@ -10,6 +10,7 @@ type Props = {
 
 const MultiSelectField = ({ label, items }: Props) => {
 	const field = useFieldContext<string[]>()
+	const { showError, messages } = useFieldErrors()
 
 	const selectedValues = field.state.value ?? []
 
@@ -53,6 +54,10 @@ const MultiSelectField = ({ label, items }: Props) => {
 					)
 				})}
 			</div>
+
+			{showError && (
+				<FieldError className='text-xs'>{messages.join(', ')}</FieldError>
+			)}
 		</Field>
 	)
 }

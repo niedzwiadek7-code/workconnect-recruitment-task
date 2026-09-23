@@ -1,10 +1,10 @@
 import type { DbProduct } from '@/types/product'
 
-export const dumpProducts: DbProduct[] = [
+export const initialProducts: DbProduct[] = [
 	{
 		id: 1,
 		name: 'MacBook Pro 14"',
-		sku: 'MPRO14-M3-PRO',
+		sku: 'MPRO14M3PRO',
 		description:
 			'Laptop Apple z chipem M3 Pro, 14-calowym ekranem Liquid Retina XDR i baterią na cały dzień pracy.',
 		producer: 'apple',
@@ -21,7 +21,7 @@ export const dumpProducts: DbProduct[] = [
 	{
 		id: 2,
 		name: 'Galaxy S24 Ultra',
-		sku: 'S24U-512-12',
+		sku: 'S24U51212',
 		description:
 			'Flagowy smartfon Samsung z tytanową obudową, aparatem 200 MP i obsługą Galaxy AI.',
 		producer: 'samsung',
@@ -39,7 +39,7 @@ export const dumpProducts: DbProduct[] = [
 	{
 		id: 3,
 		name: 'Sony WH-1000XM5',
-		sku: 'WH1000XM5-B',
+		sku: 'WH1000XM5B',
 		description:
 			'Słuchawki nauszne Sony z aktywną redukcją szumów, obsługą Bluetooth i dźwiękiem Hi-Res.',
 		producer: 'sony',
@@ -56,7 +56,7 @@ export const dumpProducts: DbProduct[] = [
 	{
 		id: 4,
 		name: 'Bosch Serie 6 WAU28P40',
-		sku: 'WAU28P40-PLN',
+		sku: 'WAU28P40PLN',
 		description:
 			'Pralka Bosch Serie 6 z 9 kg ładunku, silnikiem EcoSilence Drive i funkcją AllergyPlus.',
 		producer: 'bosch',
@@ -74,41 +74,7 @@ export const dumpProducts: DbProduct[] = [
 	{
 		id: 5,
 		name: 'Xiaomi Smart Band 8',
-		sku: 'MZB0B9B-CN',
-		description:
-			'Opaska fitness Xiaomi z 1.62-calowym ekranem AMOLED, monitorowaniem snu i wodoodpornością 5 ATM.',
-		producer: 'xiaomi',
-		category: 'accessories',
-		features: ['bluetooth', 'waterproof'],
-		price: 199,
-		vat: '23',
-		currency: 'PLN',
-		available: true,
-		limited: false,
-		minInCart: 1,
-		maxInCart: 20,
-	},
-	{
-		id: 6,
-		name: 'Xiaomi Smart Band 8',
-		sku: 'MZB0B9B-CN',
-		description:
-			'Opaska fitness Xiaomi z 1.62-calowym ekranem AMOLED, monitorowaniem snu i wodoodpornością 5 ATM.',
-		producer: 'xiaomi',
-		category: 'accessories',
-		features: ['bluetooth', 'waterproof'],
-		price: 199,
-		vat: '23',
-		currency: 'PLN',
-		available: true,
-		limited: false,
-		minInCart: 1,
-		maxInCart: 20,
-	},
-	{
-		id: 7,
-		name: 'Xiaomi Smart Band 8',
-		sku: 'MZB0B9B-CN',
+		sku: 'MZB0B9BCN',
 		description:
 			'Opaska fitness Xiaomi z 1.62-calowym ekranem AMOLED, monitorowaniem snu i wodoodpornością 5 ATM.',
 		producer: 'xiaomi',

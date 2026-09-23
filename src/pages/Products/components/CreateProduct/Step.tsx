@@ -8,7 +8,7 @@ type Props = {
 	actualStep: number
 }
 
-const StepButton = ({ step, label, description, actualStep }: Props) => {
+const Step = ({ step, label, description, actualStep }: Props) => {
 	const isActive = actualStep >= step
 
 	return (
@@ -33,4 +33,4 @@ const StepButton = ({ step, label, description, actualStep }: Props) => {
 	)
 }
 
-export default StepButton
+export default Step

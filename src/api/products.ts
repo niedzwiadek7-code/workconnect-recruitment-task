@@ -1,4 +1,4 @@
-import { mockProductsApi } from '@/api/mock/productsApi'
+import { mockProductsApi } from '@/api/mock/products/api'
 import type {
 	GetProductRequest,
 	GetProductResponse,

@@ -6,7 +6,7 @@ const TableRowSkeleton = () => {
 		<TableRow>
 			{Array.from({ length: 6 }).map((__, cellIndex) => (
 				<TableCell key={cellIndex} className='px-4 py-2'>
-					<Skeleton className='h-5 w-full' />
+					<Skeleton className='h-5.25 w-full' />
 				</TableCell>
 			))}
 		</TableRow>

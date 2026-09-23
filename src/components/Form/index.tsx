@@ -6,8 +6,10 @@ import MultiSelectField from './MultiSelectField'
 import PriceField from './PriceField'
 import SelectField from './SelectField'
 import SwitchField from './SwitchField'
-import Textarea from './Textarea'
+import TextareaField from './TextareaField'
 import TextField from './TextField'
+
+export { useFieldErrors } from './hooks/useFieldErrors'
 
 export const { fieldContext, useFieldContext, formContext, useFormContext } =
 	createFormHookContexts()
@@ -15,7 +17,7 @@ export const { fieldContext, useFieldContext, formContext, useFormContext } =
 export const { useAppForm, withForm } = createFormHook({
 	fieldComponents: {
 		TextField,
-		Textarea,
+		TextareaField,
 		SelectField,
 		MultiSelectField,
 		PriceField,
@@ -23,9 +25,7 @@ export const { useAppForm, withForm } = createFormHook({
 		SwitchField,
 		CheckboxField,
 	},
-	formComponents: {
-		// SubmitButton,
-	},
+	formComponents: {},
 	fieldContext,
 	formContext,
 })

@@ -36,6 +36,14 @@ const ProductsTable = ({
 	return (
 		<div className='hidden w-full rounded-lg border bg-card shadow-xs lg:block'>
 			<Table>
+				<colgroup>
+					<col className='w-[28%]' />
+					<col className='w-[14.4%]' />
+					<col className='w-[14.4%]' />
+					<col className='w-[14.4%]' />
+					<col className='w-[14.4%]' />
+					<col className='w-[14.4%]' />
+				</colgroup>
 				<TableHeader>
 					<TableRow>
 						<TableHead className='rounded-tl-lg bg-gray-50 text-muted-foreground'>

@@ -1,6 +1,7 @@
 import { productFormOpts } from './form-options'
 
 import { withForm } from '@/components/Form'
+import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper'
 
 const BasicForm = withForm({
 	...productFormOpts,
@@ -33,7 +34,7 @@ const BasicForm = withForm({
 					<form.AppField
 						name='description'
 						children={(field) => (
-							<field.Textarea
+							<field.TextareaField
 								label='Opis produktu'
 								placeholder='Krótki opis produktu'
 								rows={3}
@@ -67,11 +68,20 @@ const BasicForm = withForm({
 								label='Kategoria'
 								placeholder='Wybierz kategorię'
 								items={[
-									{ value: 'computers', label: 'Computers' },
-									{ value: 'phones', label: 'Phones' },
-									{ value: 'rtv', label: 'RTV' },
-									{ value: 'agd', label: 'AGD' },
-									{ value: 'accessories', label: 'Accessories' },
+									{
+										value: 'computers',
+										label: categoryNameToCategoryLabel.computers,
+									},
+									{
+										value: 'phones',
+										label: categoryNameToCategoryLabel.phones,
+									},
+									{ value: 'rtv', label: categoryNameToCategoryLabel.rtv },
+									{ value: 'agd', label: categoryNameToCategoryLabel.agd },
+									{
+										value: 'accessories',
+										label: categoryNameToCategoryLabel.accessories,
+									},
 								]}
 							/>
 						)}

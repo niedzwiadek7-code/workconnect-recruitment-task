@@ -1,27 +1,20 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { parseAsInteger, useQueryStates } from 'nuqs'
 
 import { productsApi } from '@/api/products'
 import type { GetProductResponse } from '@/api/types/products'
 import ProductsCards from '@/pages/Products/components/ProductsCards/ProductsCards'
 import ProductsHeader from '@/pages/Products/components/ProductsHeader'
 import ProductsTable from '@/pages/Products/components/ProductsTable/ProductsTable'
+import { useProductsPagination } from '@/pages/Products/hooks/useProductsPagination'
 
 const Products = () => {
-	const [filters, setFilters] = useQueryStates(
-		{
-			page: parseAsInteger.withDefault(1),
-			perPage: parseAsInteger.withDefault(5),
-		},
-		{
-			history: 'push',
-		}
-	)
+	const [filters, setFilters] = useProductsPagination()
 
 	const {
 		data: productsResult = { data: [], total: 0 },
 		isPending,
+		isFetching,
 		isError,
 		error,
 	} = useQuery<GetProductResponse>({
@@ -29,9 +22,18 @@ const Products = () => {
 		queryFn: () => productsApi.getProducts(filters),
 	})
 
-	const totalPages = useMemo(() => {
-		return Math.ceil(productsResult.total / filters.perPage)
-	}, [productsResult.total, filters.perPage])
+	const totalPages = Math.ceil(productsResult.total / filters.perPage)
+	const page = isPending ? filters.page : Math.min(filters.page, totalPages)
+
+	useEffect(() => {
+		if (filters.page !== page) {
+			setFilters({ page })
+		}
+	}, [filters.page, page, setFilters])
+
+	const pagination = useMemo(() => {
+		return { ...filters, page }
+	}, [filters, page])
 
 	const emptyRowsCount = useMemo(() => {
 		return Math.max(0, filters.perPage - productsResult.data.length)
@@ -52,19 +54,19 @@ const Products = () => {
 
 			<ProductsTable
 				productsResult={productsResult}
-				filters={filters}
+				filters={pagination}
 				totalPages={totalPages}
 				emptyRowsCount={emptyRowsCount}
 				handlePageChange={handlePageChange}
-				isPending={isPending}
+				isPending={isFetching}
 			/>
 
 			<ProductsCards
 				productsResult={productsResult}
-				filters={filters}
+				filters={pagination}
 				totalPages={totalPages}
 				handlePageChange={handlePageChange}
-				isPending={isPending}
+				isPending={isFetching}
 			/>
 		</div>
 	)

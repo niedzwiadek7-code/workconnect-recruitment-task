@@ -51,9 +51,12 @@ const Modal = ({
 	return (
 		<Dialog
 			open={open}
-			onOpenChange={(open) => {
-				setOpen?.(open)
-				onClose?.()
+			onOpenChange={(nextOpen) => {
+				setOpen?.(nextOpen)
+
+				if (!nextOpen) {
+					onClose?.()
+				}
 			}}
 		>
 			<DialogTrigger render={trigger} />

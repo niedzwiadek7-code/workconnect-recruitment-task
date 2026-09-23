@@ -1,4 +1,4 @@
-import { useFieldContext } from '.'
+import { useFieldContext, useFieldErrors } from '.'
 
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import {
@@ -19,17 +19,11 @@ type Props = {
 
 const SelectField = ({ label, placeholder, items }: Props) => {
 	const field = useFieldContext<string | null>()
+	const { showError, messages } = useFieldErrors()
 
 	const selectedValue = items.find(
 		(item) => item.value === field.state.value
 	)?.label
-
-	const errors = field.state.meta.errors
-	const uniqueMessages = [
-		...new Set(errors.map((error) => error?.message ?? error)),
-	]
-	const isTouched = field.state.meta.isTouched
-	const showError = isTouched && errors.length > 0
 
 	return (
 		<Field className='flex flex-col justify-start gap-2'>
@@ -58,7 +52,7 @@ const SelectField = ({ label, placeholder, items }: Props) => {
 			</Select>
 
 			{showError && (
-				<FieldError className='text-xs'>{uniqueMessages.join(', ')}</FieldError>
+				<FieldError className='text-xs'>{messages.join(', ')}</FieldError>
 			)}
 		</Field>
 	)

@@ -1,7 +1,7 @@
-import { useFieldContext } from '.'
+import { useFieldContext, useFieldErrors } from '.'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 
 type Props = {
 	label: string
@@ -9,6 +9,7 @@ type Props = {
 
 const CheckboxField = ({ label }: Props) => {
 	const field = useFieldContext<boolean>()
+	const { showError, messages } = useFieldErrors()
 
 	return (
 		<Field orientation='horizontal'>
@@ -24,6 +25,10 @@ const CheckboxField = ({ label }: Props) => {
 				/>
 				{label}
 			</FieldLabel>
+
+			{showError && (
+				<FieldError className='text-xs'>{messages.join(', ')}</FieldError>
+			)}
 		</Field>
 	)
 }

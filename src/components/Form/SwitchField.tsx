@@ -1,6 +1,6 @@
-import { useFieldContext } from '.'
+import { useFieldContext, useFieldErrors } from '.'
 
-import { Field, FieldLabel } from '@/components/ui/field'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 import { Switch } from '@/components/ui/switch'
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 
 const SwitchField = ({ label }: Props) => {
 	const field = useFieldContext<boolean>()
+	const { showError, messages } = useFieldErrors()
 
 	return (
 		<Field
@@ -22,6 +23,10 @@ const SwitchField = ({ label }: Props) => {
 				onBlur={field.handleBlur}
 			/>
 			<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+
+			{showError && (
+				<FieldError className='text-xs'>{messages.join(', ')}</FieldError>
+			)}
 		</Field>
 	)
 }
