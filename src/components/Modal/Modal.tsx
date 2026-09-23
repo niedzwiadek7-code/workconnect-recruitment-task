@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import type { VariantProps } from 'class-variance-authority'
 import { cn } from 'cn'
-import { type LucideIcon, XIcon } from 'lucide-react'
+import { Loader2Icon, type LucideIcon, XIcon } from 'lucide-react'
 
 import { Button, buttonVariants } from '@/components/ui/button.tsx'
 import {
@@ -21,6 +21,7 @@ export type ModalButtonProp = {
 	side: 'left' | 'right'
 	disabled?: boolean
 	variant: VariantProps<typeof buttonVariants>['variant']
+	loading?: boolean
 }
 
 type Props = {
@@ -30,6 +31,8 @@ type Props = {
 	children: ReactElement
 	className?: string
 	onClose?: () => void
+	open?: boolean
+	setOpen?: (open: boolean) => void
 }
 
 const Modal = ({
@@ -39,16 +42,18 @@ const Modal = ({
 	trigger,
 	className,
 	onClose,
+	open,
+	setOpen,
 }: Props) => {
 	const leftButtons = buttons.filter((button) => button.side === 'left')
 	const rightButtons = buttons.filter((button) => button.side === 'right')
 
 	return (
 		<Dialog
+			open={open}
 			onOpenChange={(open) => {
-				if (!open) {
-					onClose?.()
-				}
+				setOpen?.(open)
+				onClose?.()
 			}}
 		>
 			<DialogTrigger render={trigger} />
@@ -85,10 +90,14 @@ const Modal = ({
 								key={index}
 								onClick={button.onClick}
 								variant={button.variant}
-								disabled={button.disabled}
+								disabled={button.disabled || button.loading}
 								className='cursor-pointer px-4 py-2 text-sm font-medium'
 							>
-								{button.icon && <button.icon />}
+								{button.loading ? (
+									<Loader2Icon className='size-4 animate-spin' />
+								) : (
+									button.icon && <button.icon />
+								)}
 								{button.label}
 							</Button>
 						))}
@@ -100,11 +109,14 @@ const Modal = ({
 								key={index}
 								onClick={button.onClick}
 								variant={button.variant}
-								disabled={button.disabled}
+								disabled={button.disabled || button.loading}
 								className='cursor-pointer px-4 py-2 text-sm font-medium'
 							>
+								{button.loading && (
+									<Loader2Icon className='size-4 animate-spin' />
+								)}
 								{button.label}
-								{button.icon && <button.icon size={16} />}
+								{button.icon && !button.loading && <button.icon />}
 							</Button>
 						))}
 					</div>

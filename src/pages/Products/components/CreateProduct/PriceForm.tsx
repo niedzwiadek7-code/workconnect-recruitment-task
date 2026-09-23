@@ -1,6 +1,6 @@
 import { withForm } from '@/components/Form'
+import PriceInput from '@/components/Inputs/PriceInput.tsx'
 import { Field, FieldLabel } from '@/components/ui/field.tsx'
-import { Input } from '@/components/ui/input.tsx'
 import { productFormOpts } from '@/pages/Products/components/CreateProduct/form-options.ts'
 import { vatEnum } from '@/schemas/product.ts'
 import { calculateGrossPrice, calculateNetPrice } from '@/utils/price.ts'
@@ -12,28 +12,21 @@ const PriceForm = withForm({
 			<>
 				<form.Subscribe
 					selector={(state) => ({
-						price: state.values.price ?? 0,
+						price: state.values.price ?? null,
 						vat: Number(state.values.vat ?? 0),
 					})}
 				>
 					{({ price, vat }) => {
-						const grossPrice = calculateGrossPrice(price, vat)
+						const grossPrice =
+							price === null ? null : calculateGrossPrice(price, vat)
 
-						const handleGrossPriceChange = (value: string) => {
-							if (value === '') {
+						const handleGrossPriceChange = (gross: number | null) => {
+							if (gross === null) {
 								form.setFieldValue('price', undefined)
 								return
 							}
 
-							const gross = Number(value)
-
-							if (Number.isNaN(gross)) {
-								return
-							}
-
-							const net = calculateNetPrice(gross, vat)
-
-							form.setFieldValue('price', Number(net.toFixed(2)))
+							form.setFieldValue('price', calculateNetPrice(gross, vat))
 						}
 
 						return (
@@ -46,16 +39,13 @@ const PriceForm = withForm({
 								/>
 
 								<Field className='flex flex-col justify-start gap-2'>
-									<FieldLabel>Cena brutto</FieldLabel>
+									<FieldLabel htmlFor='grossPrice'>Cena brutto</FieldLabel>
 
-									<Input
-										type='number'
-										value={grossPrice || ''}
-										onChange={(event) =>
-											handleGrossPriceChange(event.target.value)
-										}
+									<PriceInput
+										id='grossPrice'
+										value={grossPrice}
+										onChange={handleGrossPriceChange}
 										placeholder='0.00'
-										step='0.01'
 										className='rounded-3xl bg-transparent px-3 py-1'
 									/>
 								</Field>

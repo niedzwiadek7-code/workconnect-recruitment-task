@@ -1,14 +1,17 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useSelector } from '@tanstack/react-form'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { cn } from 'cn'
 import { ArrowLeft, ArrowRight, Plus } from 'lucide-react'
 
 import { productFormOpts } from './form-options.ts'
 
+import { mockProductsApi } from '@/api/mock/productsApi.ts'
 import { useAppForm } from '@/components/Form'
 import Modal, { type ModalButtonProp } from '@/components/Modal/Modal.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
+import { toast } from '@/components/ui/toast.tsx'
 import BasicForm from '@/pages/Products/components/CreateProduct/BasicForm.tsx'
 import PriceForm from '@/pages/Products/components/CreateProduct/PriceForm.tsx'
 import StepButton from '@/pages/Products/components/CreateProduct/StepButton.tsx'
@@ -23,6 +26,25 @@ const stepFields: Record<number, (keyof Product)[]> = {
 
 const CreateProduct = () => {
 	const [step, setStep] = useState<number>(1)
+	const [openModal, setOpenModal] = useState<boolean>(false)
+
+	const queryClient = useQueryClient()
+
+	const createProduct = useMutation({
+		mutationFn: (product: Product) => mockProductsApi.createProduct(product),
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({
+				queryKey: ['products'],
+			})
+
+			setOpenModal(false)
+
+			toast.add({
+				title: 'Produkt został dodany',
+				type: 'success',
+			})
+		},
+	})
 
 	const form = useAppForm({
 		...productFormOpts,
@@ -31,8 +53,7 @@ const CreateProduct = () => {
 			onChange: productSchema,
 		},
 		onSubmit: async ({ value }) => {
-			// TODO: Do something with form data
-			console.log(value)
+			createProduct.mutate(value as Product)
 		},
 	})
 
@@ -110,6 +131,7 @@ const CreateProduct = () => {
 				side: 'right',
 				variant: 'default',
 				disabled: !currentStepIsValid,
+				loading: createProduct.isPending,
 			},
 			{
 				label: 'Poprzedni',
@@ -119,7 +141,7 @@ const CreateProduct = () => {
 				icon: ArrowLeft,
 			},
 		]
-	}, [step, currentStepIsValid, form, handleStep])
+	}, [step, currentStepIsValid, form, handleStep, createProduct.isPending])
 
 	const resetForm = () => {
 		form.reset()
@@ -138,6 +160,8 @@ const CreateProduct = () => {
 			}
 			className='h-full min-w-full lg:h-auto lg:min-w-180'
 			onClose={resetForm}
+			open={openModal}
+			setOpen={setOpenModal}
 		>
 			<div className='flex min-h-0 grow flex-col'>
 				<div className='mx-4 flex shrink-0 items-center gap-4 overflow-x-auto border-y py-3 lg:mx-0 lg:border-y-0 lg:border-b lg:px-4 lg:py-3'>

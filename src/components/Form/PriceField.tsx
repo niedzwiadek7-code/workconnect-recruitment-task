@@ -2,48 +2,43 @@ import React from 'react'
 
 import { useFieldContext } from '.'
 
-import { Field, FieldLabel } from '@/components/ui/field.tsx'
-import { Input } from '@/components/ui/input.tsx'
+import PriceInput from '@/components/Inputs/PriceInput.tsx'
+import { Field, FieldError, FieldLabel } from '@/components/ui/field.tsx'
 
 type Props = {
 	label: string
 	placeholder?: string
-} & React.InputHTMLAttributes<HTMLInputElement>
+} & Omit<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	'id' | 'type' | 'value' | 'onChange' | 'onBlur'
+>
 
 const PriceField = ({ label, placeholder, ...inputProps }: Props) => {
-	// TODO: should show 2 decimal places
-
 	const field = useFieldContext<number | null>()
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const val = e.target.value
-
-		if (val === '') {
-			field.handleChange(null)
-			return
-		}
-
-		if (!/^\d*(\.\d{0,2})?$/.test(val)) {
-			return
-		}
-
-		field.handleChange(Number(val))
-	}
+	const errors = field.state.meta.errors
+	const uniqueMessages = [
+		...new Set(errors.map((error) => error?.message ?? error)),
+	]
+	const isTouched = field.state.meta.isTouched
+	const showError = isTouched && errors.length > 0
 
 	return (
 		<Field className='flex flex-col justify-start gap-2'>
 			<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-			<Input
+			<PriceInput
 				id={field.name}
-				type='number'
-				value={field.state.value ?? ''}
-				placeholder={placeholder}
-				onChange={handleChange}
+				value={field.state.value}
+				onChange={(value) => field.handleChange(value)}
 				onBlur={field.handleBlur}
+				placeholder={placeholder}
 				className='rounded-3xl bg-transparent px-3 py-1'
-				step='0.01'
 				{...inputProps}
 			/>
+
+			{showError && (
+				<FieldError className='text-xs'>{uniqueMessages.join(', ')}</FieldError>
+			)}
 		</Field>
 	)
 }

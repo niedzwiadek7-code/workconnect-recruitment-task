@@ -11,6 +11,7 @@ import {
 	TableRow,
 } from '@/components/ui/table.tsx'
 import AvailableBadge from '@/pages/Products/components/AvailableBadge.tsx'
+import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper.ts'
 import type { Pagination as PaginationType } from '@/types/pagination.ts'
 import { calculateGrossPrice, formatPrice } from '@/utils/price.ts'
 
@@ -62,18 +63,20 @@ const ProductsTable = ({
 								{product.sku}
 							</TableCell>
 							<TableCell className='text-muted-xs px-4 py-2'>
-								{product.category}
+								{categoryNameToCategoryLabel[product.category]}
 							</TableCell>
 							<TableCell className='px-4 py-2'>
 								{formatPrice(
-									calculateGrossPrice(product.price, product.vat),
+									calculateGrossPrice(product.price, Number(product.vat)),
 									product.currency
 								)}
 							</TableCell>
 							<TableCell className='px-4 py-2'>
 								<AvailableBadge available={product.available} />
 							</TableCell>
-							<TableCell className='px-4 py-2'>-</TableCell>
+							<TableCell className='px-4 py-2'>
+								{product.limited ? product.stock : '-'}
+							</TableCell>
 						</TableRow>
 					))}
 

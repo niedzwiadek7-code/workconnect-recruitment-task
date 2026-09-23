@@ -4,14 +4,13 @@ import type {
 	GetProductResponse,
 } from '@/api/types/products.ts'
 import { type Product, productSchema } from '@/schemas/product.ts'
-import { manyProducts } from '@/test/data/manyProducts.ts'
+import { dumpProducts } from '@/test/data/products.ts'
 import type { DbProduct } from '@/types/product.ts'
-// import { dumpProducts } from '@/test/data/products.ts'
 import { delay } from '@/utils'
 
 const MOCK_DELAY_MS = 300
 
-let products: DbProduct[] = [...manyProducts]
+let products: DbProduct[] = [...dumpProducts]
 
 export const mockProductsApi: ProductsApi = {
 	getProducts: async (

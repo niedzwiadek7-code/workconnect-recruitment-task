@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card.tsx'
 import AvailableBadge from '@/pages/Products/components/AvailableBadge.tsx'
+import { categoryNameToCategoryLabel } from '@/pages/Products/utils/mapper.ts'
 import type { Product } from '@/schemas/product.ts'
 import { calculateGrossPrice, formatPrice } from '@/utils/price.ts'
 
@@ -23,14 +24,16 @@ const ProductCard = ({ product }: Props) => {
 				<div className='flex items-center gap-1'>
 					<div className='flex min-w-0 grow flex-col items-start justify-start gap-1'>
 						<div className='text-muted-xs truncate'>Kategoria</div>
-						<div className='truncate'>{product.category}</div>
+						<div className='truncate'>
+							{categoryNameToCategoryLabel[product.category]}
+						</div>
 					</div>
 
 					<div className='flex min-w-0 grow flex-col items-start justify-start gap-1'>
 						<div className='text-muted-xs truncate'>Cena brutto</div>
 						<div className='truncate'>
 							{formatPrice(
-								calculateGrossPrice(product.price, product.vat),
+								calculateGrossPrice(product.price, Number(product.vat)),
 								product.currency
 							)}
 						</div>
@@ -38,7 +41,10 @@ const ProductCard = ({ product }: Props) => {
 
 					<div className='flex min-w-0 grow flex-col items-start justify-start gap-1'>
 						<div className='text-muted-xs truncate'>Magazyn</div>
-						<div className='truncate'> - </div>
+						<div className='truncate'>
+							{' '}
+							{product.limited ? product.stock : '-'}{' '}
+						</div>
 					</div>
 				</div>
 			</div>
