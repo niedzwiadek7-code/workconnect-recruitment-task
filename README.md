@@ -25,3 +25,7 @@ npm start
 ```
 
 The production server will be available at `http://localhost:4173`.
+
+## Hosting
+
+The project is hosted at: https://workconnect-recruitment-task-blush.vercel.app/

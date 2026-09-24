@@ -20,6 +20,7 @@ const Products = () => {
 	} = useQuery<GetProductResponse>({
 		queryKey: ['products', filters],
 		queryFn: () => productsApi.getProducts(filters),
+		staleTime: 60_000,
 	})
 
 	const totalPages = Math.ceil(productsResult.total / filters.perPage)
