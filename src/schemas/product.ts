@@ -68,19 +68,19 @@ export const productSchema = zod
 		currency: zod.enum(currencyEnum.options, {
 			error: 'Waluta jest wymagana',
 		}),
-		available: zod.boolean(),
-		limited: zod.boolean(),
+		available: zod.boolean({ error: 'Dostępność jest wymagana' }),
+		limited: zod.boolean({ error: 'Limit jest wymagany' }),
 		stock: zod
 			.number()
 			.int({ error: 'Ilość musi być liczbą całkowitą' })
 			.min(0, { error: 'Ilość nie może być ujemna' })
 			.optional(),
 		minInCart: zod
-			.number()
+			.number({ error: 'Min. ilość jest wymagana' })
 			.int({ error: 'Min. ilość musi być liczbą całkowitą' })
 			.min(0),
 		maxInCart: zod
-			.number()
+			.number({ error: 'Maks. ilość jest wymagana' })
 			.int({ error: 'Maks. ilość musi być liczbą całkowitą' })
 			.min(0),
 	})
